@@ -1,0 +1,23 @@
+{
+  "name": "discount-ascii-warehouse",
+  "description": "For all your ascii needs.",
+  "main": "index.js",
+  "authors": [
+    "Frederico Jesus <fredericojesus88@gmail.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "directory" : "static/bower_components",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.8",
+    "angular-resource": "~1.4.8"
+  }
+}
