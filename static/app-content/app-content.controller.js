@@ -7,13 +7,18 @@
         
     appContentController.$inject = ['$scope', 'warehouse', '$http'];
     function appContentController($scope, warehouse, $http) {
-        $http.get('/api/products?limit=10').then(function (response) {
-            console.log(response.status);
-        });
-        
-        // warehouse.query().$promise.then(function(wtf) {
-        //     console.log(wtf);
+        // $http({method: 'GET',
+        //     url: '/api/products?limit=10',
+        //     transformResponse: function(data) {
+        //         angular.toJson(data, true);
+        //         return data;
+        //     }
+        // }).then(function(data) {
+        //     console.log(data); 
         // });
+        warehouse.query().$promise.then(function(data) {
+            console.log(data);
+        });
         
         // function httpGetAsync(theUrl, callback) {
         //     var xmlHttp = new XMLHttpRequest();

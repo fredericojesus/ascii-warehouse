@@ -4,18 +4,16 @@
         .module('app')
         .factory('warehouse', warehouse);
         
-    warehouse.$inject = ['$resource', '$http'];
-    function warehouse($resource, $http) {
-        var WareHouseResource = $resource('/api/products', {
+    warehouse.$inject = ['$resource'];
+    function warehouse($resource) {
+        var WareHouseResource = $resource('/api/products?limit=10', {}, {
             query: {
                 method: 'GET',
-                isArray: false,
-                transformResponse: $http.defaults.transformResponse.concat(function(data, header) {
-                    angular.forEach(data.items, function(item, idx) {
-                        data.items[idx] = new WareHouseResource(item);
-                    });
-                    return data;
-                })
+                isArray: true,
+                transformResponse: function(data) {
+                    data = ('[' + data + ']').replace(/}/g, '},').replace(',]', ']');
+                    return angular.fromJson(data);
+                }
             }
         });
         
