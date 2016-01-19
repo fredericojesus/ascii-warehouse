@@ -8,7 +8,7 @@
     function appHeader() {
         return {
             restrict: 'EA',
-            templateUrl: 'app-header/app-header.html',
+            templateUrl: 'header/app-header.html',
             controller: 'AppHeaderController'
         };
     }

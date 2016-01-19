@@ -1,0 +1,16 @@
+<section class="warehouse" infinite-scroll="loadFaces()">
+    
+    <div ng-repeat="product in products">
+        <article class="warehouse-product-container" ng-if="!product.adUrl">
+            <div class="warehouse-product-display" ng-style="{'font-size': product.size + 'pt'}">{{product.face}}</div>
+            <header class="warehouse-product-header">
+                <span>{{product.price | currency}}</span>
+                <span> - </span>
+                <span>{{product.date | timeAgo}}</span>
+            </header>
+        </article>        
+      
+        <img class="ad" ng-src="{{product.adUrl}}" ng-if="product.adUrl"/>
+    </div>
+    
+</section>

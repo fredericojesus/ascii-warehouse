@@ -1,4 +1,6 @@
 node_modules/
 static/bower_components
 typings/
+.vscode/
 EXAM_README.md
+notes.js

@@ -1,0 +1,30 @@
+.warehouse {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.warehouse-product-container {
+    border: 2px solid;
+    width: 316px;
+    height: 196px;
+    margin: 20px 20px 0px 0px;
+}
+
+.warehouse-product-display {
+    height: 150px;
+    line-height: 150px;
+    text-align: center;
+}
+
+.warehouse-product-header {
+    height: 45px;
+    line-height: 45px;
+    text-align: center;
+    border-top: 1px solid;
+}
+
+.ad {
+    width: 320px;
+    height: 200px;
+    margin: 20px 20px 0px 0px;
+}

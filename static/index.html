@@ -3,24 +3,30 @@
     
     <head>
         <title>Discount Ascii Warehouse</title>
+ 
+        <!-- css files -->
+        <link rel="stylesheet" href="warehouse/warehouse.css">
         
-        <!-- npm scripts -->
+        <!-- bower scripts -->
         <script src="bower_components/angular/angular.js"></script>
         <script src="bower_components/angular-resource/angular-resource.js"></script>
+        <script src="bower_components/angular-timeago/dist/angular-timeago.js"></script>
         
         <!-- app scripts -->
         <script src="app.module.js"></script>
-        <script src="app-header/app-header.directive.js"></script>
-        <script src="app-header/app-header.controller.js"></script>
-        <script src="app-content/app-content.directive.js"></script>
-        <script src="app-content/app-content.controller.js"></script>
-        <script src="app-content/warehouse.js"></script>
+        <!--<script src="filters.module.js"></script>-->
+        <script src="infinite-scroll/infinite-scroll.js"></script>
+        <script src="header/app-header.directive.js"></script>
+        <script src="header/app-header.controller.js"></script>
+        <script src="warehouse/warehouse.directive.js"></script>
+        <script src="warehouse/warehouse.controller.js"></script>
+        <script src="warehouse/warehouse.js"></script>
         
     </head>
     
     <body>
         <app-header></app-header>
-        <app-content></app-content>
+        <warehouse></warehouse>
     </body>
     
 </html>
