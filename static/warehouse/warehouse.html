@@ -1,16 +1,22 @@
-<section class="warehouse" infinite-scroll="loadFaces()">
+<section class="warehouse" infinite-scroll="getProductsFromCache()">
     
     <div ng-repeat="product in products">
         <article class="warehouse-product-container" ng-if="!product.adUrl">
-            <div class="warehouse-product-display" ng-style="{'font-size': product.size + 'pt'}">{{product.face}}</div>
+            <div class="warehouse-product-display" ng-style="{'font-size': product.size + 'pt'}">{{::product.face}}</div>
             <header class="warehouse-product-header">
-                <span>{{product.price | currency}}</span>
+                <span>{{::product.price | currency}}</span>
                 <span> - </span>
-                <span>{{product.date | timeAgo}}</span>
+                <span>{{::product.date | timeAgo}}</span>
+                <span> - </span>
+                <span>{{::product.count}}</span>
             </header>
         </article>        
       
-        <img class="ad" ng-src="{{product.adUrl}}" ng-if="product.adUrl"/>
+        <img class="ad" ng-src="{{::product.adUrl}}" ng-if="product.adUrl"/>
     </div>
     
 </section>
+
+<div class="spinner" ng-show="isGettingProducts">
+    <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
+</div>

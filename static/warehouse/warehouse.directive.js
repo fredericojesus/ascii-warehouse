@@ -7,7 +7,7 @@
 
     function warehouse() {
         return {
-            restrict: 'EA',
+            restrict: 'E',
             templateUrl: 'warehouse/warehouse.html',
             controller: 'warehouseController'
         };

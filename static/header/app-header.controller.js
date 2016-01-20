@@ -8,7 +8,7 @@
     function AppHeaderController($scope, $interval) {
         
         var randomNumber = Math.floor(Math.random()*1000);
-        $scope.randomCat = '/ad/?r=' + randomNumber;
+        $scope.randomAd = '/ad/?r=' + randomNumber;
         
         $interval(function() {
             
@@ -22,7 +22,7 @@
             }
             
             randomNumber = newRandomNumber;
-            $scope.randomCat = '/ad/?r=' + randomNumber;
+            $scope.randomAd = '/ad/?r=' + randomNumber;
             
         }, 20000);
     }
