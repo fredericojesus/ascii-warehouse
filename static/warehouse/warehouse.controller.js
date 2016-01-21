@@ -3,36 +3,54 @@
     
     angular
         .module('app')
-        .controller('warehouseController', warehouseController);
+        .controller('warehouseController', WarehouseController);
         
-    warehouseController.$inject = ['$scope', 'warehouse', '$sce'];
-    function warehouseController($scope, warehouse, $sce) {
+    WarehouseController.$inject = ['$scope', 'warehouse', '$sce', '$window'];
+    function WarehouseController($scope, warehouse, $sce, $window) {
         var limit = 9;
         var skip = 0;
+        var sort = '';
         var count = 0;
         var randomAdNumber = 0;
         $scope.products = [];
         $scope.productsCache = [];
         $scope.isGettingProducts = false;
+        $scope.selectedButton = 'id';
+        // $scope.fixSorter = false;
         $scope.getProductsFromCache = getProductsFromCache;
+        $scope.sortProducts = sortProducts;
                   
         getProducts($scope.products, true);                          
+        
+        function sortProducts(s) {
+            if (s === sort)
+                return;        
+            
+            sort = $scope.selectedButton = s;
+            skip = count = 0;               
+            $scope.products = $scope.productsCache = [];
+            
+            getProducts($scope.products, true);
+        } 
         
         function getProductsFromCache() {
             if ($scope.isGettingProducts) {              
                 return;      
-            }
-            for (var i = 0; i < $scope.productsCache.length; i++) {
+            }                      
+            
+            var productsCacheLength = $scope.productsCache.length;
+            for (var i = 0; i < productsCacheLength; i++) {
                 $scope.products.push($scope.productsCache[0]);
                 $scope.productsCache.shift();             
             }
+            
             getProducts($scope.productsCache);          
         }
         
         function getProducts(productsArray, fillCache) {         
             $scope.isGettingProducts = true;                    
             
-            warehouse.query({limit: limit, skip: skip}).$promise
+            warehouse.query({limit: limit, skip: skip, sort: sort}).$promise
                 .then(function(data) {
                     for (var i = 0; i < data.length; i++) {
                         var auxDate = new Date(data[i].date);
@@ -52,7 +70,7 @@
                         }          
                     }         
                     
-                    skip += 9
+                    skip += limit;
                     
                     if (fillCache)
                         getProducts($scope.productsCache);

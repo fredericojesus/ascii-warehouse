@@ -2,24 +2,26 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    float: right;
+    padding: 20px 0 20px 0;
 }
 
 .warehouse-product-container {
     border: 2px solid;
-    width: 316px;
-    height: 196px;
-    margin: 20px 20px 0px 0px;
+    width: 356px;
+    height: 236px;
+    margin: 20px 10px 0px 10px;
 }
 
 .warehouse-product-display {
-    height: 150px;
-    line-height: 150px;
+    height: 180px;
+    line-height: 180px;
     text-align: center;
 }
 
 .warehouse-product-header {
-    height: 45px;
-    line-height: 45px;
+    height: 55px;
+    line-height: 55px;
     text-align: center;
     border-top: 1px solid;
 }

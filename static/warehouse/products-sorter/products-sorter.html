@@ -1,0 +1,8 @@
+<div class="products-sorter-container" ng-class="{'products-sorter-container-fixed': fixSorter}">
+    <span>Sort products by:</span>
+    <div class="products-sorter-buttons-container">
+        <button type="button" ng-click="sortProducts('id')" class="products-sorter-button" ng-class="{'products-sorter-button-selected': selectedButton == 'id'}">Id</button>
+        <button type="button" ng-click="sortProducts('size')" class="products-sorter-button" ng-class="{'products-sorter-button-selected': selectedButton == 'size'}">Size</button>
+        <button type="button" ng-click="sortProducts('price')" class="products-sorter-button" ng-class="{'products-sorter-button-selected': selectedButton == 'price'}">Price</button>
+    </div>
+</div>

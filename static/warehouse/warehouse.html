@@ -1,3 +1,5 @@
+<products-sorter></products-sorter>
+
 <section class="warehouse" infinite-scroll="getProductsFromCache()">
     
     <div ng-repeat="product in products">
@@ -12,7 +14,7 @@
             </header>
         </article>        
       
-        <img class="ad" ng-src="{{::product.adUrl}}" ng-if="product.adUrl"/>
+        <img class="cat" ng-src="{{::product.adUrl}}" ng-if="product.adUrl"/>
     </div>
     
 </section>

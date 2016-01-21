@@ -5,6 +5,7 @@
         .module('app')
         .controller('AppHeaderController', AppHeaderController);
 
+    AppHeaderController.$inject = ['$scope', '$interval'];
     function AppHeaderController($scope, $interval) {
         
         var randomNumber = Math.floor(Math.random()*1000);
