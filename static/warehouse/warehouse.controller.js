@@ -52,13 +52,16 @@
          * @return
          */
         function sortProducts(sort) {
-            if (sort === $scope.sort) {
+            //if $scope.isGettingProducts, in order to avoid spam by the user, it should be avoided in another way
+            if (sort === $scope.sort || $scope.isGettingProducts) {
                 return;
             }
             
             $scope.sort = sort;
-            skip = count = 0;
-            $scope.products = $scope.productsBuffer = [];
+            skip = 0; 
+            count = 0;
+            $scope.products = []; 
+            $scope.productsBuffer = [];
             $scope.finished = false;
             
             loadProducts($scope.products);
