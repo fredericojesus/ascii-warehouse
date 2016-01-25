@@ -1,27 +1,18 @@
 .warehouse {
     display: flex;
+    flex-direction: column;
+}
+
+.warehouse-products {
+    display: flex;
     flex-wrap: wrap;
     justify-content: center;
     float: right;
     padding: 20px 0 20px 0;
 }
 
-.warehouse-product-container {
-    border: 2px solid;
-    width: 356px;
-    height: 236px;
-    margin: 20px 10px 0px 10px;
-}
-
-.warehouse-product-display {
-    height: 180px;
-    line-height: 180px;
+.warehouse-end-catalogue {
     text-align: center;
-}
-
-.warehouse-product-header {
-    height: 55px;
-    line-height: 55px;
-    text-align: center;
-    border-top: 1px solid;
+    font-size: 20pt;
+    padding: 30px 0px 30px 0;
 }

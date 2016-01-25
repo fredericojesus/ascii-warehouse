@@ -2,14 +2,14 @@
     'use strict';
 
     angular
-        .module('app')
+        .module('app.warehouse')
         .directive('warehouse', warehouse);
 
     function warehouse() {
         return {
             restrict: 'E',
             templateUrl: 'warehouse/warehouse.html',
-            controller: 'warehouseController'
+            controller: 'WarehouseController'
         };
     }
 

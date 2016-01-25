@@ -3,87 +3,124 @@
     
     angular
         .module('app')
-        .controller('warehouseController', WarehouseController);
+        .controller('WarehouseController', WarehouseController);
         
-    WarehouseController.$inject = ['$scope', 'warehouse', '$sce', '$window'];
-    function WarehouseController($scope, warehouse, $sce, $window) {
+    WarehouseController.$inject = ['$scope', 'products'];
+    function WarehouseController($scope, products) {
         var limit = 9;
         var skip = 0;
-        var sort = '';
         var count = 0;
         var randomAdNumber = 0;
-        $scope.products = [];
-        $scope.productsCache = [];
+        $scope.finished = false;
+        $scope.sort = 'id';
         $scope.isGettingProducts = false;
-        $scope.selectedButton = 'id';
-        // $scope.fixSorter = false;
-        $scope.getProductsFromCache = getProductsFromCache;
+        
+        //Arrays of products
+        $scope.products = [];
+        $scope.productsBuffer = [];
+        
+        //Functions
+        $scope.loadProductsFromBuffer = loadProductsFromBuffer;
         $scope.sortProducts = sortProducts;
                   
-        getProducts($scope.products, true);                          
+        //Start fetching products          
+        loadProducts($scope.products);                          
         
-        function sortProducts(s) {
-            if (s === sort)
-                return;        
-            
-            sort = $scope.selectedButton = s;
-            skip = count = 0;               
-            $scope.products = $scope.productsCache = [];
-            
-            getProducts($scope.products, true);
-        } 
-        
-        function getProductsFromCache() {
-            if ($scope.isGettingProducts) {              
-                return;      
+        //Function called by infinite scroll in order to load more products from buffer, when the buffer is empty, load more products into buffer
+        function loadProductsFromBuffer() {
+            //prevents scroll spamming
+            if ($scope.isGettingProducts) {
+                return;
             }                      
             
-            var productsCacheLength = $scope.productsCache.length;
-            for (var i = 0; i < productsCacheLength; i++) {
-                $scope.products.push($scope.productsCache[0]);
-                $scope.productsCache.shift();             
-            }
+            unloadBuffer();
             
-            getProducts($scope.productsCache);          
+            if (!$scope.finished) {
+                //loads more products into buffer
+                loadProducts($scope.productsBuffer);
+            }
         }
         
-        function getProducts(productsArray, fillCache) {         
-            $scope.isGettingProducts = true;                    
+        //Function that resets products arrays, skip and count and starts fetching products with the desirable sort
+        function sortProducts(sort) {
+            if (sort === $scope.sort) {
+                return;
+            }
             
-            warehouse.query({limit: limit, skip: skip, sort: sort}).$promise
-                .then(function(data) {
-                    for (var i = 0; i < data.length; i++) {
-                        var auxDate = new Date(data[i].date);
-                        data[i].date = auxDate.toISOString();                                              
-                                  
-                        count++;                                           
-                        //insert an ad if already showed 20 products and decrement the iterator in order to not skip one product
-                        if(count%20 == 0) {
-                            var ad = {};
-                            randomAdNumber = getNewRandomAdNumber(randomAdNumber);
-                            ad.adUrl = '/ad/?r=' + randomAdNumber;               
-                            productsArray.push(ad);                                        
-                            i--;
-                        } else {                          
-                            data[i].count = count;
-                            productsArray.push(data[i]);
-                        }          
-                    }         
-                    
-                    skip += limit;
-                    
-                    if (fillCache)
-                        getProducts($scope.productsCache);
-                    else
-                        $scope.isGettingProducts = false;
-                    
-                }).catch(function(err) {
-                    if(err) {
-                        console.log(err);
-                    } else {
-                        console.log('Couldnt retrieve data from server');
-                    }
-                });
+            $scope.sort = sort;
+            skip = count = 0;
+            $scope.products = $scope.productsBuffer = [];
+            $scope.finished = false;
+            
+            loadProducts($scope.products);
+        }             
+        
+        //Function that will fetch products using Oboe.js to parse data as JSON objects
+        function loadProducts(productsArray) {
+            $scope.isGettingProducts = true;
+
+            products.get(done, limit, skip, $scope.sort)
+                .then(success)
+                .catch(error);
+                
+            //oboe.js: this function is called everytime a product is streamed    
+            function done(product) {
+                //in order to simulate the end of the catalogue, once we get a repeated product we unload the buffer and stop fetching more products
+                checkFinish(product);
+                
+                count++;
+                //if already fetched 20 products insert an ad
+                if(count%20 == 0) {
+                    var ad = {};
+                    randomAdNumber = getNewRandomAdNumber(randomAdNumber);
+                    ad.adUrl = '/ad/?r=' + randomAdNumber;               
+                    productsArray.push(ad);
+                    count++;                                        
+                }
+                productsArray.push(product);
+            }
+                
+            //stream finished    
+            function success(products) {
+                skip += limit;
+                
+                //if it's the first time getting products, load buffer
+                if (skip === limit) {
+                    loadProducts($scope.productsBuffer);
+                } else {
+                    $scope.isGettingProducts = false;
+                }
+            }
+        
+            function error(err) {
+                console.log(err || 'Couldnt retrieve data from server');
+            }
+        }
+        
+        function unloadBuffer() {
+            var productsBufferLength = $scope.productsBuffer.length;
+            for (var i = 0; i < productsBufferLength; i++) {
+                $scope.products.push($scope.productsBuffer[0]);
+                $scope.productsBuffer.shift();
+            }
+        }
+        
+        function productExists(product) {
+            var index = $scope.products.map(function(p) {
+                if (p.face) return p.face;   
+            }).indexOf(product.face);
+            
+            return index > -1;
+        }
+        
+        function checkFinish(product) {
+            if ($scope.finished) {
+                return;
+            }
+            if (productExists(product)) {
+                $scope.finished = true;
+                unloadBuffer();
+            }
         }
     }
     

@@ -1,24 +1,17 @@
 <products-sorter></products-sorter>
 
-<section class="warehouse" infinite-scroll="getProductsFromCache()">
-    
-    <div ng-repeat="product in products">
-        <article class="warehouse-product-container" ng-if="!product.adUrl">
-            <div class="warehouse-product-display" ng-style="{'font-size': product.size + 'pt'}">{{::product.face}}</div>
-            <header class="warehouse-product-header">
-                <span>{{::product.price | currency}}</span>
-                <span> - </span>
-                <span>{{::product.date | timeAgo}}</span>
-                <span> - </span>
-                <span>{{::product.count}}</span>
-            </header>
-        </article>        
-      
-        <img class="cat" ng-src="{{::product.adUrl}}" ng-if="product.adUrl"/>
-    </div>
-    
+<section class="warehouse-products" infinite-scroll="loadProductsFromBuffer()">
+    <products ng-repeat="product in products"></products>
 </section>
 
 <div class="spinner" ng-show="isGettingProducts">
     <i class="fa fa-spinner fa-spin" style="font-size:24px"></i>
 </div>
+
+<div class="warehouse-end-catalogue" ng-if="finished">
+    <span>~ end of catalogue ~</span>
+</div>
+
+<back-top scroll-speed=1200 class="arrow-top">
+    <i class="fa fa-chevron-up"></i>
+</back-top>

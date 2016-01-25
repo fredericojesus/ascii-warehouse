@@ -1,40 +1,45 @@
 <!DOCTYPE html>
-<html ng-app="app">
+<html href="#html" ng-app="app">
     
     <head>
         <title>Discount Ascii Warehouse</title>
  
         <!-- bower css files -->
         <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.css">
+        <link rel="stylesheet" href="bower_components/angular-backtop/dist/angular-backtop.css">
         
         <!-- css files -->
-        <link rel="stylesheet" href="app/app.css">
+        <link rel="stylesheet" href="app.css">
         <link rel="stylesheet" href="header/app-header.css">
         <link rel="stylesheet" href="warehouse/warehouse.css">
+        <link rel="stylesheet" href="warehouse/products/products.css">
         <link rel="stylesheet" href="warehouse/products-sorter/products-sorter.css">
           
         <!-- bower scripts -->
         <script src="bower_components/angular/angular.js"></script>
-        <script src="bower_components/angular-resource/angular-resource.js"></script>
-        <script src="bower_components/angular-timeago/dist/angular-timeago.js"></script>
+        <script src="bower_components/oboe/dist/oboe-browser.min.js"></script>
+        <script src="bower_components/angular-backtop/dist/angular-backtop.min.js"></script>
         
         <!-- app scripts -->
-        <script src="app/app.module.js"></script>
-        <!--<script src="filters.module.js"></script>-->
+        <script src="app.module.js"></script>
         <script src="utils/infinite-scroll.js"></script>
+        <script src="utils/time-ago.js"></script>
         <script src="header/app-header.directive.js"></script>
         <script src="header/app-header.controller.js"></script>
+        <script src="warehouse/warehouse.module.js"></script>
         <script src="warehouse/warehouse.directive.js"></script>
         <script src="warehouse/warehouse.controller.js"></script>
-        <script src="warehouse/warehouse.js"></script>
+        <script src="warehouse/products/products.module.js"></script>
+        <script src="warehouse/products/products.directive.js"></script>
+        <script src="warehouse/products/products.js"></script>
+        <script src="warehouse/products-sorter/products-sorter.module.js"></script>
         <script src="warehouse/products-sorter/products-sorter.directive.js"></script>
-        <script src="warehouse/products-sorter/products-sorter.controller.js"></script>
         
     </head>
     
     <body>
         <app-header></app-header>
-        <warehouse></warehouse>
+        <warehouse class="warehouse"></warehouse>
     </body>
     
 </html>

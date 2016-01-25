@@ -1,0 +1,19 @@
+.products-container {
+    border: 2px solid;
+    width: 356px;
+    height: 236px;
+    margin: 20px 10px 0px 10px;
+}
+
+.products-display {
+    height: 180px;
+    line-height: 180px;
+    text-align: center;
+}
+
+.products-header {
+    height: 55px;
+    line-height: 55px;
+    text-align: center;
+    border-top: 1px solid;
+}

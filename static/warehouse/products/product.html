@@ -1,0 +1,12 @@
+<div>
+    <article class="products-container" ng-if="!product.adUrl">
+        <div class="products-display" ng-style="{'font-size': product.size + 'pt'}">{{::product.face}}</div>
+        <header class="products-header">
+            <span>{{::product.price | currency}}</span>
+            <span> - </span>
+            <span>{{::product.date | timeAgo}}</span>
+        </header>
+    </article>
+    
+    <img class="cat" ng-src="{{::product.adUrl}}" ng-if="product.adUrl"/>
+</div>

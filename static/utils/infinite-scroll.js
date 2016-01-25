@@ -5,29 +5,18 @@
         .module('infinite-scroll', [])
         .directive('infiniteScroll', infiniteScroll);
         
-    infiniteScroll.$inject = ['$window', '$document'];
-    function infiniteScroll($window, $document) {
+    infiniteScroll.$inject = ['$window'];
+    function infiniteScroll($window) {
         return {
             scope: {
                 infiniteScroll: '&'
             },
             link: function(scope, elem, attrs) {
                 
-                // angular.element($window).bind('scroll', function() {
-                //     var windowHeight = 'innerHeight' in window ? window.innerHeight : document.documentElement.offsetHeight;
-                //     var body = document.body, html = document.documentElement;
-                //     var docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight,  html.scrollHeight, html.offsetHeight);
-                //     var windowBottom = windowHeight + window.pageYOffset;
-                //     if (windowBottom >= docHeight) {
-                //         scope.$apply(scope.infiniteScroll);
-                //         // console.log($document[0].title)
-                //     }
-                // });
-                
-                var raw = elem[0];
+                var el = elem[0];
 
-                var checkBounds = function(evt) {
-                    var rectObject = raw.getBoundingClientRect();                
+                var checkBounds = function(event) {
+                    var rectObject = el.getBoundingClientRect();                
                     if (rectObject.bottom <= window.innerHeight) {
                         scope.$apply(scope.infiniteScroll);
                     }
