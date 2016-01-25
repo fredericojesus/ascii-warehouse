@@ -26,7 +26,11 @@
         //Start fetching products          
         loadProducts($scope.products);                          
         
-        //Function called by infinite scroll in order to load more products from buffer, when the buffer is empty, load more products into buffer
+        /**
+         * Function called by infinite scroll in order to load more products from buffer,
+         * when the buffer is empty, load more products into buffer
+         * @return
+         */
         function loadProductsFromBuffer() {
             //prevents scroll spamming
             if ($scope.isGettingProducts) {
@@ -41,7 +45,12 @@
             }
         }
         
-        //Function that resets products arrays, skip and count and starts fetching products with the desirable sort
+        /**
+         * Function that resets products arrays, 
+         * skip and count and starts fetching products with the desirable sort
+         * @param {string} sort
+         * @return
+         */
         function sortProducts(sort) {
             if (sort === $scope.sort) {
                 return;
@@ -55,7 +64,11 @@
             loadProducts($scope.products);
         }             
         
-        //Function that will fetch products using Oboe.js to parse data as JSON objects
+        /**
+         * Fetch products using Oboe.js to parse data as JSON objects into an array
+         * @param {array} productsArray - products will be inserted in this array
+         * @return
+         */
         function loadProducts(productsArray) {
             $scope.isGettingProducts = true;
 
@@ -105,14 +118,11 @@
             }
         }
         
-        function productExists(product) {
-            var index = $scope.products.map(function(p) {
-                if (p.face) return p.face;   
-            }).indexOf(product.face);
-            
-            return index > -1;
-        }
-        
+        /**
+         * If product exists unload buffer and stop fetching more products
+         * @param {object} product
+         * @return
+         */
         function checkFinish(product) {
             if ($scope.finished) {
                 return;
@@ -122,9 +132,26 @@
                 unloadBuffer();
             }
         }
+        
+        /**
+         * Checks if a product already exists
+         * @param {object} product
+         * @return {boolean} true if product exists
+         */
+        function productExists(product) {
+            var index = $scope.products.map(function(p) {
+                if (p.face) return p.face;   
+            }).indexOf(product.face);
+            
+            return index > -1;
+        }
     }
     
-    //returns a number different than the one that is received in order to not show the same ad twice in a row
+    /**
+     * Returns a number different than the one that is received in order to not show the same ad twice in a row
+     * @param {number} randomAdNumber
+     * @return {number} new random number
+     */
     function getNewRandomAdNumber(randomAdNumber) {
         var newRandomAdNumber;
         while(true) {

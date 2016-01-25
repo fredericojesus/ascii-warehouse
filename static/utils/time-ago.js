@@ -12,6 +12,7 @@
             var currentDate = new Date();
             var productDate = new Date(inputDate);
             
+            //difference between the product date and the current date in miliseconds
             var difMiliseconds = currentDate.getTime() - productDate.getTime();
             var difDays = difMiliseconds / (1000*60*60*24);
             
